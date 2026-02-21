@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventify | Discover Events Easily</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0f2027;
+            color: #ffffff;
+        }
+
+
+/* LOGO LEFT */
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   /* 🔥 keeps right side */
+    padding: 16px 40px;               /* already good */
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* RIGHT SIDE BUT WITH GAP FROM EDGE */
+.nav-links {
+    margin-right: 20px;   /* 🔥 window edge se andar */
+}
+
+/* DASHBOARD BUTTON */
+.nav-btn {
+    display: inline-block;
+    padding: 9px 20px;
+    background: #ffffff;
+    color: #0f2027;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    transition: all 0.3s ease;
+}
+
+/* HOVER */
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.45);
+    background: #f3f3f3;
+}
+
+/* ACTIVE LOOK (OPTIONAL) */
+.nav-btn:active {
+    transform: scale(0.97);
+}
+
+        .hero h1 {
+            font-size: 44px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #d0d7dd;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            margin-top: 35px;
+        }
+
+        .hero-actions a {
+            display: inline-block;
+            margin: 10px;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #ffffff;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-actions a.secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-actions a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+        }
+        .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 100px 60px;
+    background: linear-gradient(135deg, #0f2027, #203a43);
+}
+
+.hero-content {
+    max-width: 520px;
+}
+
+.hero-image img {
+    max-width: 420px;
+    width: 100%;
+    opacity: 0.95;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 70px 40px;
+            background: #203a43;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.06);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #cfd8dc;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            background: #0f2027;
+            color: #9fb3bf;
+        }
+
+        /* HERO IMAGE STYLING & ANIMATION */
+.hero-image img {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 18px;               /* Rounded corners */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    opacity: 0.95;
+
+    animation: floatImage 6s ease-in-out infinite;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Hover effect (subtle) */
+.hero-image img:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 30px 55px rgba(0,0,0,0.6);
+}
+
+/* Floating animation */
+@keyframes floatImage {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">FindEvent</div>
+
+    <div class="nav-links">
+        <a href="/dashboard/" class="nav-btn">Dashboard</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Discover Events That Matter</h1>
+        <p>
+            Find and explore upcoming events collected automatically from trusted
+            platforms — all in one simple and reliable place.
+        </p>
+
+        <div class="hero-actions">
+           <a href="{% url 'browse_events' %}" class="btn-primary">
+    Browse Events
+</a>
+            <a href="/accounts/google/login/"
+   style="padding:14px 26px;
+          background:#00c6ff;
+          border-radius:8px;
+          color:#fff;
+          text-decoration:none;">
+   Login with Google
+</a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/homehero.jpg' %}" alt="Event platform illustration">
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="feature-card">
+        <h3>⚡ Automated Discovery</h3>
+        <p>Events are automatically collected from public sources without manual effort.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>🔄 Always Up to Date</h3>
+        <p>Event status is tracked in real time to ensure accurate and relevant listings.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>🔐 Secure Access</h3>
+        <p>Login securely using Google to manage and review events through the dashboard.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>📊 Admin Control</h3>
+        <p>Review, filter, and import events easily using a dedicated admin interface.</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 FindEvent. All rights reserved.
+</footer>
+
+</body>
+</html>

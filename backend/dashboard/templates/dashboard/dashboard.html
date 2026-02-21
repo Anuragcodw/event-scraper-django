@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard | FindEvent</title>
+
+    <!-- Chart.js CDN (ADD) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            animation: fadeDown 0.8s ease;
+        }
+
+        /* SUMMARY CARDS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.08);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+            animation: fadeUp 0.8s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 55px rgba(0,0,0,0.7);
+        }
+
+        .stat-card h2 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .stat-card p {
+            margin-top: 8px;
+            color: #cfd8dc;
+        }
+
+        /* FILTERS (ADD) */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        .filters button {
+            padding: 8px 18px;
+            background: #00c6ff;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* TABLE */
+        .section-title {
+            margin: 40px 0 15px;
+            font-size: 22px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeUp 0.9s ease;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(0,0,0,0.4);
+            font-size: 13px;
+            color: #00c6ff;
+        }
+
+        td {
+            font-size: 14px;
+            color: #e0e0e0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* IMPORT BUTTON */
+        .import-btn {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+            border-radius: 6px;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .imported {
+            color: #8bc34a;
+            font-weight: 500;
+        }
+
+        /* CHART SECTION (ADD) */
+        .chart-box {
+            background: rgba(255,255,255,0.06);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            animation: fadeUp 0.9s ease;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CHART SECTION */
+.chart-section {
+    margin: 60px 0;
+    animation: fadeUp 0.8s ease;
+}
+
+/* CHART CONTAINER */
+.chart-box {
+    max-width: 420px;          /* 🎯 PROFESSIONAL SIZE */
+    margin: 0 auto;            /* center */
+    padding: 20px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+
+/* CANVAS CONTROL */
+.chart-box canvas {
+    width: 100% !important;
+    height: 280px !important;  /* 🎯 FIXED HEIGHT */
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <!-- SUMMARY -->
+    <div class="stats">
+        <div class="stat-card">
+            <h2>{{ total_events }}</h2>
+            <p>Total Events</p>
+        </div>
+        <div class="stat-card">
+            <h2>{{ active_events }}</h2>
+            <p>Active Events</p>
+        </div>
+        <div class="stat-card">
+            <h2>{{ inactive_events }}</h2>
+            <p>Inactive Events</p>
+        </div>
+        <div class="stat-card">
+            <h2>{{ total_leads }}</h2>
+            <p>Ticket Leads</p>
+        </div>
+    </div>
+
+    <!-- CHART (ADD) -->
+    <div class="chart-section">
+    <h2 class="section-title">Event Status Analytics</h2>
+
+    <div class="chart-box">
+        <canvas id="statusChart"></canvas>
+    </div>
+</div>
+
+    <!-- FILTERS (ADD) -->
+    <form method="get" class="filters">
+        <select name="status">
+            <option value="">Status</option>
+            <option value="new">New</option>
+            <option value="updated">Updated</option>
+            <option value="inactive">Inactive</option>
+            <option value="imported">Imported</option>
+        </select>
+
+        <input type="text" name="city" placeholder="City">
+
+        <button type="submit">Apply</button>
+    </form>
+
+    <!-- EVENTS TABLE -->
+    <h2 class="section-title">Recent Events</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>City</th>
+            <th>Status</th>
+            <th>Source</th>
+            <th>Last Scraped</th>
+            <th>Action</th>
+        </tr>
+        {% for e in events %}
+        <tr>
+            <td>{{ e.title }}</td>
+            <td>{{ e.city }}</td>
+            <td>{{ e.status }}</td>
+            <td>{{ e.source_website }}</td>
+            <td>{{ e.last_scraped_at|date:"M d, Y H:i" }}</td>
+            <td>
+                {% if e.status != "imported" %}
+                    <a class="import-btn" href="{% url 'import_event' e.id %}">
+                        Import
+                    </a>
+                {% else %}
+                    <span class="imported">Imported</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- LEADS TABLE -->
+    <h2 class="section-title">Recent Ticket Leads</h2>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Event</th>
+            <th>Consent</th>
+            <th>Date</th>
+        </tr>
+        {% for lead in leads %}
+        <tr>
+            <td>{{ lead.email }}</td>
+            <td>{{ lead.event.title }}</td>
+            <td>{{ lead.consent }}</td>
+            <td>{{ lead.created_at|date:"M d, Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- CHART SCRIPT (ADD) -->
+<script>
+const ctx = document.getElementById("statusChart").getContext("2d");
+
+new Chart(ctx, {
+    type: "doughnut",
+    data: {
+        labels: ["New", "Updated", "Inactive", "Imported"],
+        datasets: [{
+            data: [
+                {{ status_chart.new }},
+                {{ status_chart.updated }},
+                {{ status_chart.inactive }},
+                {{ status_chart.imported }}
+            ],
+            backgroundColor: [
+                "#00c6ff",
+                "#42a5f5",
+                "#ff7043",
+                "#66bb6a"
+            ],
+            borderWidth: 2,
+            borderColor: "#ffffff"
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,   // 🔥 THIS FIXES OVERSIZE
+        cutout: "65%",                // donut thickness
+        plugins: {
+            legend: {
+                position: "top",
+                labels: {
+                    color: "#ffffff",
+                    boxWidth: 18,
+                    padding: 15
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

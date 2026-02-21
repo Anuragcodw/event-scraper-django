@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-size: 14px;
+    color: #cfd8dc;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #cfd8dc;
+}
+
+/* CONTAINER */
+.container {
+    padding: 40px 20px;
+}
+
+/* GRID */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* EVENT CARD */
+.event-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+}
+
+.event-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.event-card p {
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+/* BUTTON */
+.event-card button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.event-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #cfd8dc;
+    background-color: rgba(0,0,0,0.3);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
