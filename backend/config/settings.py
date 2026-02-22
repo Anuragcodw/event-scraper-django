@@ -88,9 +88,6 @@ MIDDLEWARE = [
 ]
 
 
-# ----------------------------
-# URL & WSGI
-# ----------------------------
 ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -118,9 +115,6 @@ TEMPLATES = [
 ]
 
 
-# ----------------------------
-# DATABASE
-# ----------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -129,9 +123,6 @@ DATABASES = {
 }
 
 
-# ----------------------------
-# PASSWORD VALIDATION
-# ----------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -148,25 +139,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# ----------------------------
-# INTERNATIONALIZATION
-# ----------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
 
-# ----------------------------
-# STATIC FILES
-# ----------------------------
 STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
 
-# ----------------------------
-# DEFAULT PRIMARY KEY
-# ----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
