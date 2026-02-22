@@ -16,12 +16,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k*u)^l_7wq1z4^pgv&2semh!01v4-)=db(s$t7$ltv&nl%mjip'
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
-# ----------------------------
-# APPLICATIONS
-# ----------------------------
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "event-scraper-django.onrender.com",
+]
 INSTALLED_APPS = [
     # Django core
     'django.contrib.admin',
