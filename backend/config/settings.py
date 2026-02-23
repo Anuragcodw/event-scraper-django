@@ -5,14 +5,8 @@ Django settings for config project.
 from pathlib import Path
 
 # ----------------------------
-# BASE DIRECTORY
-# ----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# ----------------------------
-# SECURITY
-# ----------------------------
 SECRET_KEY = 'django-insecure-k*u)^l_7wq1z4^pgv&2semh!01v4-)=db(s$t7$ltv&nl%mjip'
 DEBUG = True
 
@@ -55,7 +49,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/accounts/login/'          # 🔴 ADD
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/dashboard/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
 
