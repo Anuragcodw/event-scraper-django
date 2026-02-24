@@ -5,10 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Event, TicketLead
 import json
 
-
-# ----------------------------
-# HOME PAGE
-# ----------------------------
 def home(request):
     """
     Landing page
@@ -16,9 +12,6 @@ def home(request):
     return render(request, "home.html")
 
 
-# ----------------------------
-# EVENTS LIST API (BACKEND)
-# ----------------------------
 def event_list(request):
     """
     Returns list of active events (API)
@@ -44,9 +37,6 @@ def event_list(request):
     return JsonResponse({"events": data})
 
 
-# ----------------------------
-# EVENTS PAGE (LOGIN REQUIRED)
-# ----------------------------
 @login_required(login_url="/accounts/google/login/")
 def browse_events(request):
     """
@@ -57,30 +47,38 @@ def browse_events(request):
         status__in=["new", "updated"]
     ).order_by("-date_time")
 
-    return render(request, "events.html", {
-        "events": events
-    })
+    return render(
+        request,
+        "events.html",
+        {"events": events}
+    )
 
-
-# ----------------------------
-# GET TICKETS API
-# ----------------------------
 @csrf_exempt
 def get_tickets(request):
     """
     Save email + consent, then redirect
     """
     if request.method != "POST":
-        return JsonResponse({"error": "Invalid method"}, status=400)
+        return JsonResponse(
+            {"error": "Invalid method"},
+            status=400
+        )
 
-    body = json.loads(request.body)
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {"error": "Invalid JSON"},
+            status=400
+        )
+
     email = body.get("email")
     consent = body.get("consent")
     event_id = body.get("event_id")
 
-    if not email or not consent:
+    if not email or not consent or not event_id:
         return JsonResponse(
-            {"error": "Email & consent required"},
+            {"error": "Email, consent and event_id required"},
             status=400
         )
 

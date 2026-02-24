@@ -1,13 +1,9 @@
-"""
-Django settings for config project.
-"""
-
 from pathlib import Path
 
-# ----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-k*u)^l_7wq1z4^pgv&2semh!01v4-)=db(s$t7$ltv&nl%mjip'
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -15,6 +11,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "event-scraper-django.onrender.com",
 ]
+
 INSTALLED_APPS = [
     # Django core
     'django.contrib.admin',
@@ -40,33 +37,29 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 
-# ----------------------------
-# AUTHENTICATION
-# ----------------------------
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-LOGIN_URL = '/accounts/login/'          # 🔴 ADD
+# 🔴 IMPORTANT FIX
+LOGIN_URL = '/accounts/google/login/'
 LOGIN_REDIRECT_URL = '/dashboard/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-# ----------------------------
-# ALLAUTH SETTINGS (REQUIRED)
-# ----------------------------
-ACCOUNT_EMAIL_REQUIRED = True            # 🔴 ADD
-ACCOUNT_USERNAME_REQUIRED = False        # 🔴 ADD
-ACCOUNT_AUTHENTICATION_METHOD = 'email'  # 🔴 ADD
-ACCOUNT_EMAIL_VERIFICATION = 'none'      # 🔴 ADD
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-SOCIALACCOUNT_LOGIN_ON_GET = True        # 🔴 ADD (better UX)
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# ✅ NEW (for django-allauth 65+ compatibility)
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 
 
-# ----------------------------
-# MIDDLEWARE
-# ----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,20 +73,16 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-
 ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# ----------------------------
-# TEMPLATES
-# ----------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',   # optional global templates
+            BASE_DIR / 'templates',   # global templates (optional)
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -107,14 +96,12 @@ TEMPLATES = [
     },
 ]
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -137,7 +124,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -146,5 +132,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+# ✅ REQUIRED FOR RENDER
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

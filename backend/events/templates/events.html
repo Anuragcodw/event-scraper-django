@@ -13,7 +13,6 @@
             color: #ffffff;
         }
 
-        /* HEADER */
         .page-header {
             padding: 70px 20px 40px;
             text-align: center;
@@ -29,21 +28,18 @@
             font-size: 16px;
         }
 
-        /* CONTAINER */
         .container {
             max-width: 1200px;
             margin: auto;
             padding: 20px;
         }
 
-        /* GRID */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        /* CARD */
         .event-card {
             background: rgba(255,255,255,0.08);
             border-radius: 16px;
@@ -58,50 +54,49 @@
             box-shadow: 0 20px 45px rgba(0,0,0,0.6);
         }
 
-        .event-card h3 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 18px;
-            line-height: 1.4;
-        }
-
         .event-meta {
             font-size: 14px;
             color: #d0d7dd;
-            line-height: 1.6;
             margin-bottom: 18px;
         }
 
-        .event-meta span {
-            display: block;
-        }
-
-        /* BUTTON */
-        .event-card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 12px 20px;
+        .ticket-btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 10px;
             background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
             font-size: 13px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0,198,255,0.35);
+            animation: pulseGlow 2.5s infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .event-card a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+        .ticket-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 28px rgba(0,198,255,0.6);
         }
 
-        /* EMPTY STATE */
-        .empty {
-            text-align: center;
-            padding: 60px;
-            color: #cfd8dc;
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
         }
 
-        /* FOOTER */
+        .modal-content {
+            background: #203a43;
+            padding: 30px;
+            width: 320px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+        }
+
         footer {
             text-align: center;
             padding: 25px;
@@ -111,131 +106,19 @@
             background: #0f2027;
         }
 
-        /* ANIMATION */
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        /* GET TICKETS BUTTON */
-/* GET TICKETS BUTTON */
-.ticket-btn {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: #fff;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow: 0 8px 20px rgba(0,198,255,0.35);
-
-    animation: pulseGlow 2.5s infinite;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ticket-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 12px 28px rgba(0,198,255,0.6);
-}
-
-@keyframes pulseGlow {
-    0% {
-        box-shadow: 0 0 0 rgba(0,198,255,0.4);
-    }
-    50% {
-        box-shadow: 0 0 18px rgba(0,198,255,0.7);
-    }
-    100% {
-        box-shadow: 0 0 0 rgba(0,198,255,0.4);
-    }
-}
-/* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.modal-content {
-    background: #203a43;
-    padding: 30px;
-    width: 320px;
-    border-radius: 16px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-
-    animation: modalPop 0.45s ease;
-}
-
-@keyframes modalPop {
-    from {
-        opacity: 0;
-        transform: scale(0.85) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.modal-content h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.modal-content input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    border: none;
-}
-
-.consent {
-    font-size: 13px;
-    color: #cfd8dc;
-}
-
-.modal-actions {
-    margin-top: 18px;
-    display: flex;
-    gap: 10px;
-}
-
-.modal-actions button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.modal-actions .secondary {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-}
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="page-header">
     <h1>Upcoming Events</h1>
     <p>Explore the latest events collected automatically from trusted platforms</p>
 </div>
 
-<!-- EVENTS -->
 <div class="container">
     <div class="events-grid">
         {% for event in events %}
@@ -243,47 +126,54 @@
             <h3>{{ event.title }}</h3>
 
             <div class="event-meta">
-                <span>📍 {{ event.city }}</span>
-                <span>🕒 {{ event.date_time|date:"M d, Y · H:i" }}</span>
+                <span>📍 {{ event.city }}</span><br>
+                <span>🕒 {{ event.date_time|date:"M d, Y · H:i" }}</span><br>
                 <span>🌐 {{ event.source_website }}</span>
             </div>
 
-           <button class="ticket-btn"
-        onclick="openTicketModal({{ event.id }})">
-          Get Tickets
-      </button>
+            <button class="ticket-btn" onclick="openTicketModal({{ event.id }})">
+                Get Tickets
+            </button>
         </div>
         {% empty %}
-        <div class="empty">
-            <p>No events available at the moment.</p>
-        </div>
+        <p>No events available.</p>
         {% endfor %}
     </div>
 </div>
-   <!-- TICKET MODAL -->
+
 <div id="ticketModal" class="modal">
     <div class="modal-content">
         <h3>Get Tickets</h3>
-
         <input type="email" id="userEmail" placeholder="Enter your email">
-
-        <label class="consent">
-            <input type="checkbox" id="consentCheck">
-            I agree to be contacted regarding this event
+        <label>
+            <input type="checkbox" id="consentCheck"> I agree to be contacted
         </label>
-
-        <div class="modal-actions">
-            <button onclick="submitTicket()">Continue</button>
-            <button class="secondary" onclick="closeTicketModal()">Cancel</button>
-        </div>
+        <br><br>
+        <button onclick="submitTicket()">Continue</button>
+        <button onclick="closeTicketModal()">Cancel</button>
     </div>
 </div>
-<!-- FOOTER -->
+
 <footer>
     © 2026 FindEvent. Discover events that matter.
 </footer>
+
 <script>
 let selectedEventId = null;
+
+// CSRF helper
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        document.cookie.split(';').forEach(cookie => {
+            const c = cookie.trim();
+            if (c.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
 
 function openTicketModal(eventId) {
     selectedEventId = eventId;
@@ -295,6 +185,11 @@ function closeTicketModal() {
 }
 
 function submitTicket() {
+    if (!selectedEventId) {
+        alert("Invalid event");
+        return;
+    }
+
     const email = document.getElementById("userEmail").value;
     const consent = document.getElementById("consentCheck").checked;
 
@@ -305,7 +200,10 @@ function submitTicket() {
 
     fetch("/api/get-tickets/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")
+        },
         body: JSON.stringify({
             email: email,
             consent: consent,
@@ -319,8 +217,10 @@ function submitTicket() {
         } else {
             alert("Something went wrong");
         }
-    });
+    })
+    .catch(() => alert("Network error"));
 }
 </script>
+
 </body>
 </html>
